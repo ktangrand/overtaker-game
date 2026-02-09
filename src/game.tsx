@@ -246,6 +246,9 @@ type ModRun = {
   ghost?: number;
   fog?: number;
   score?: number;
+  leanX?: number;
+  leanY?: number;
+  leanYaw?: number;
   near?: number;
   hitX?: number;
   hitZ?: number;
