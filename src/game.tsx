@@ -437,6 +437,12 @@ function RacingGame() {
       goal = SPEED_STAGES[0].goal;
       stageIdx = 0;
       runTime = 0;
+      player.position.set(curveXAtS(0), 0.2, 0);
+      player.rotation.set(0, 0, 0);
+      npcs.forEach((npc) => {
+        respawnNpc(npc, npc.same);
+        updateNpc(npc, 0, {});
+      });
       setGlitch({ list: null, time: 0, mod: {} });
       setGlitchPick(null);
       setCrashed(false);
