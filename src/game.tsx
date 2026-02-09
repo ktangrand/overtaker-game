@@ -241,6 +241,7 @@ type ModRun = {
   damp?: number;
   acc?: number;
   brk?: number;
+  ms?: number;
   curve?: number;
   ghost?: number;
   fog?: number;
