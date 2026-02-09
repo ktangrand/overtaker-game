@@ -241,10 +241,14 @@ type ModRun = {
   damp?: number;
   acc?: number;
   brk?: number;
+  ms?: number;
   curve?: number;
   ghost?: number;
   fog?: number;
   score?: number;
+  leanX?: number;
+  leanY?: number;
+  leanYaw?: number;
   near?: number;
   hitX?: number;
   hitZ?: number;
