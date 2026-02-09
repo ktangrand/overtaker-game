@@ -241,10 +241,14 @@ type ModRun = {
   damp?: number;
   acc?: number;
   brk?: number;
+  ms?: number;
   curve?: number;
   ghost?: number;
   fog?: number;
   score?: number;
+  leanX?: number;
+  leanY?: number;
+  leanYaw?: number;
   near?: number;
   hitX?: number;
   hitZ?: number;
@@ -650,6 +654,7 @@ function RacingGame() {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       tick(dt);
+      renderer.render(scene, camera);
       frame = requestAnimationFrame(loop);
     };
     frame = requestAnimationFrame(loop);
