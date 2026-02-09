@@ -654,6 +654,7 @@ function RacingGame() {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       tick(dt);
+      renderer.render(scene, camera);
       frame = requestAnimationFrame(loop);
     };
     frame = requestAnimationFrame(loop);
