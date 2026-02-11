@@ -620,7 +620,9 @@ function RacingGame() {
       player.position.set(state.x + curveXAtS(state.z) + (mod.leanX || 0), 0.2 + (mod.leanY || 0), 0);
       player.rotation.y = (steer + (mod.leanYaw || 0)) * 0.12;
 
+
       camera.position.lerp(new THREE.Vector3(state.x + curveXAtS(state.z), 1.8, 5), paramsNow.camFollowLerp);
+
       const lookAheadZ = 12;
       const lookS = state.z + lookAheadZ;
       const lookPos = new THREE.Vector3(curveXAtS(lookS), 0.8, lookAheadZ);
