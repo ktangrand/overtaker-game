@@ -314,7 +314,7 @@ function RacingGame() {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, mount.clientWidth / mount.clientHeight, 0.1, 500);
     camera.position.set(0, 1.8, -5);
-    camera.lookAt(new THREE.Vector3(0, 0, 12));
+    camera.lookAt(new THREE.Vector3(0, 0.8, 12));
 
     const fog = new THREE.FogExp2(0x0b0c10, 0.03);
     scene.fog = fog;
@@ -626,10 +626,11 @@ function RacingGame() {
 
       const lookAheadZ = 12;
       const lookS = state.z + lookAheadZ;
-      const lookPos = new THREE.Vector3(curveXAtS(lookS), 0, lookAheadZ);
+      const lookPos = new THREE.Vector3(curveXAtS(lookS), 0.8, lookAheadZ);
       camera.lookAt(lookPos);
+      const basePitch = camera.rotation.x;
       camera.rotation.y += pointer.x * paramsNow.lookYawLimit;
-      camera.rotation.x = clamp(camera.rotation.x + pointer.y * paramsNow.lookPitchLimit, -0.3, 0.3);
+      camera.rotation.x = clamp(basePitch + pointer.y * paramsNow.lookPitchLimit, basePitch - 0.3, basePitch + 0.3);
       camera.fov = clamp(paramsNow.fovMin + (state.speed / (maxSpeed * 1.2)) * (paramsNow.fovMax - paramsNow.fovMin), 35, 95);
       camera.updateProjectionMatrix();
       if (mod.shake) camera.position.x += Math.sin(runTime * 20) * 0.02;
