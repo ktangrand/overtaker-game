@@ -314,7 +314,7 @@ function RacingGame() {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, mount.clientWidth / mount.clientHeight, 0.1, 500);
     camera.position.set(0, 1.8, -5);
-    camera.lookAt(new THREE.Vector3(0, 0.8, 12));
+    camera.lookAt(new THREE.Vector3(0, 0.8, 2));
 
     const fog = new THREE.FogExp2(0x0b0c10, 0.03);
     scene.fog = fog;
@@ -624,7 +624,7 @@ function RacingGame() {
 
       camera.position.lerp(new THREE.Vector3(state.x + curveXAtS(state.z), 1.8, -5), paramsNow.camFollowLerp);
 
-      const lookAheadZ = 12;
+      const lookAheadZ = 2;
       const lookS = state.z + lookAheadZ;
       const lookPos = new THREE.Vector3(curveXAtS(lookS), 0.8, lookAheadZ);
       camera.lookAt(lookPos);
