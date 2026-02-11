@@ -241,10 +241,14 @@ type ModRun = {
   damp?: number;
   acc?: number;
   brk?: number;
+  ms?: number;
   curve?: number;
   ghost?: number;
   fog?: number;
   score?: number;
+  leanX?: number;
+  leanY?: number;
+  leanYaw?: number;
   near?: number;
   hitX?: number;
   hitZ?: number;
@@ -433,6 +437,12 @@ function RacingGame() {
       goal = SPEED_STAGES[0].goal;
       stageIdx = 0;
       runTime = 0;
+      player.position.set(curveXAtS(0), 0.2, 0);
+      player.rotation.set(0, 0, 0);
+      npcs.forEach((npc) => {
+        respawnNpc(npc, npc.same);
+        updateNpc(npc, 0, {});
+      });
       setGlitch({ list: null, time: 0, mod: {} });
       setGlitchPick(null);
       setCrashed(false);
@@ -610,9 +620,10 @@ function RacingGame() {
       player.position.set(state.x + curveXAtS(state.z) + (mod.leanX || 0), 0.2 + (mod.leanY || 0), 0);
       player.rotation.y = (steer + (mod.leanYaw || 0)) * 0.12;
 
-      camera.position.lerp(new THREE.Vector3(state.x + curveXAtS(state.z), 1.8, 5), paramsNow.camFollowLerp);
-      const lookAheadZ = state.z + 12;
-      const lookPos = new THREE.Vector3(curveXAtS(lookAheadZ), 0.8, lookAheadZ);
+      camera.position.lerp(new THREE.Vector3(state.x + curveXAtS(state.z), 1.8, -5), paramsNow.camFollowLerp);
+      const lookAheadZ = 12;
+      const lookS = state.z + lookAheadZ;
+      const lookPos = new THREE.Vector3(curveXAtS(lookS), 0.8, lookAheadZ);
       camera.lookAt(lookPos);
       camera.rotation.y += pointer.x * paramsNow.lookYawLimit;
       camera.rotation.x = clamp(camera.rotation.x + pointer.y * paramsNow.lookPitchLimit, -0.3, 0.3);
@@ -650,6 +661,7 @@ function RacingGame() {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       tick(dt);
+      renderer.render(scene, camera);
       frame = requestAnimationFrame(loop);
     };
     frame = requestAnimationFrame(loop);
